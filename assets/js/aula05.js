@@ -9,6 +9,7 @@ formFuncionario.addEventListener("submit", (event) => {
     let irpf = 0
     let vt = 0
     let liquido = 0
+    let totalDesc = 0
 
     // Variáveis das DIVs HTML:
     let nomeFunc = document.getElementById('nome-func')
@@ -26,9 +27,9 @@ formFuncionario.addEventListener("submit", (event) => {
     inss = formFuncionario.salario.value * 0.075
     else if (formFuncionario.salario.value > 1412 && formFuncionario.salario.value <= 2824)
     inss = formFuncionario.salario.value * 0.09
-    else if (formFuncionario.salario.value > 2824 && formFuncionario.salario.value < 3200)
+    else if (formFuncionario.salario.value > 2824 && formFuncionario.salario.value <= 3200)
     inss = formFuncionario.salario.value * 0.12
-    else if (formFuncionario.salario.value > 3200 && formFuncionario.salario.value < 7080)
+    else if (formFuncionario.salario.value > 3200 && formFuncionario.salario.value <= 7080 || formFuncionario.salario.value > 7080)
     inss = formFuncionario.salario.value * 0.14
 
     if(formFuncionario.salario.value > 1900 && formFuncionario.salario.value <= 2826)
@@ -43,15 +44,22 @@ formFuncionario.addEventListener("submit", (event) => {
     vt = formFuncionario.salario.value * 0.06
     liquido = formFuncionario.salario.value - inss - irpf - vt
 
+    totalDesc = formFuncionario.salario.value - liquido
+
     relatorio.style.display = "block"
 
     nomeFunc.innerHTML = formFuncionario.nome.value
     cargoFunc.innerHTML = formFuncionario.cargo.value
     dpFunc.innerHTML = formFuncionario.departamento.value
     salarioFunc.innerHTML = `${Number(formFuncionario.salario.value).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
-    inssFunc.innerHTML = `${Number(formFuncionario.salario.value).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
-    irpfFunc.innerHTML = `${Number(formFuncionario.salario.value).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
-    vtfFunc.innerHTML = `${Number(formFuncionario.salario.value).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
+    inssFunc.innerHTML = `${inss.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}` 
+    irpfFunc.innerHTML = `${irpf.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
+    vtfFunc.innerHTML = `${vt.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
     proventoFunc.innerHTML = `${Number(formFuncionario.salario.value).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
-    liquidoFunc.innerHTML = `${Number(formFuncionario.salario.value).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
+    liquidoFunc.innerHTML = `${liquido.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
+
+
+    document.getElementById("provento-Total").innerHTML = salarioFunc.innerHTML = `${Number(formFuncionario.salario.value).toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
+    document.getElementById("desc-Total").innerHTML = `${totalDesc.toLocaleString('pt-br', {style: 'currency', currency: 'BRL'})}`
+    
 })
